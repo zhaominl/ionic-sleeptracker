@@ -1,0 +1,142 @@
+<ion-header>
+  <ion-toolbar color="medium">
+    <ion-title class="title-space">
+      Sleep Logger
+    </ion-title>
+    <!--<ion-button end color="medium">
+      <ion-icon name="search"></ion-icon>
+    </ion-button>-->
+
+    <ion-buttons slot="end">
+      <ion-button icon-only (click)="onClickSearch()">
+        <ion-icon name="search"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+  <ion-toolbar color="medium" no-border-top>
+    <ion-segment [(ngModel)]="apps">
+      <ion-segment-button (click)='onClickNight()' value="Night">
+        Night
+      </ion-segment-button>
+      <ion-segment-button (click)='onClickDay()' value="Day">
+        Day
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="scroll-content" color="dark" padding>
+
+  <ion-list color="dark" #slidingList *ngIf="apps == 'Day'">
+    <ion-item-sliding color="dark" *ngFor="let day of currentLogs | async">
+
+      <ion-item color="dark">
+        <!--
+        <ion-label>
+          {{day.summaryString()}}
+        </ion-label>
+        <ion-badge color="{{palette[day.logVal-1]}}" item-end>
+          {{day.logVal}}
+        </ion-badge>-->
+
+        <ion-card color="medium">
+          <ion-item color="light">
+            <ion-card-title>{{day.dateString()}}</ion-card-title>
+            <ion-icon name="cafe" slot="end"></ion-icon>
+          </ion-item>
+
+          <ion-card-content>
+            {{day.sumString()}}
+            <ion-badge color="{{palette[day.logVal-1]}}" item-end>
+              {{day.logVal}}
+            </ion-badge>
+          </ion-card-content>
+        </ion-card>
+
+      </ion-item>
+
+      <ion-item-options side="end">
+        <ion-item-option (click)="deleteDayData(day)" color="danger">Delete</ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+  <ion-list #slidingList color="dark" *ngIf="apps == 'Night'">
+    <ion-item-sliding *ngFor="let night of currentLogs | async">
+
+      <ion-item color="dark">
+        <!--
+          <ion-item color="dark">
+              <ion-label text-wrap>
+                <ion-text color="primary">
+                  {{night.dateString()}}
+                </ion-text><br />
+                <ion-text>
+                  {{night.summaryString()}}
+                </ion-text>
+              </ion-label>
+            </ion-item>
+          -->
+
+        <ion-card color="medium">
+
+          <ion-label color="light">&nbsp; &nbsp; Night of</ion-label>
+          <ion-item color="light">
+            <ion-card-title>{{night.dateString()}}</ion-card-title>
+            <ion-icon name="bed" slot="end"></ion-icon>
+          </ion-item>
+
+          <ion-card-content>
+            You slept <br />
+            {{night.summaryString()}}
+          </ion-card-content>
+        </ion-card>
+
+      </ion-item>
+      <ion-item-options side="end">
+        <ion-item-option (click)="deleteNightData(night)" color="danger">Delete</ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+
+  </ion-list>
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-tabs>
+
+      <ion-tab-bar slot="bottom" color="medium">
+        <ion-tab-button tab="home" href="/home">
+          <ion-icon name="home"></ion-icon>
+          <ion-label>home</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button tab="lognight" href="/lognight">
+          <ion-icon name="moon"></ion-icon>
+          <ion-label>night</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button tab="logday" href="/logday">
+          <ion-icon name="sunny"></ion-icon>
+          <ion-label>day</ion-label>
+        </ion-tab-button>
+      </ion-tab-bar>
+
+      <ion-tab tab="home">
+        <ion-router-outlet name="view"></ion-router-outlet>
+      </ion-tab>
+
+      <ion-tab tab="lognight">
+        <ion-router-outlet name="night"></ion-router-outlet>
+      </ion-tab>
+
+      <ion-tab tab="logday">
+        <ion-router-outlet name="day"></ion-router-outlet>
+      </ion-tab>
+    </ion-tabs>
+  </ion-toolbar>
+</ion-footer>
+
+<script src="https://unpkg.com/ionicons@4.4.8/dist/ionicons.js"></script>

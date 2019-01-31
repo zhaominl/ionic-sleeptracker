@@ -1,0 +1,38 @@
+// http://ionicframework.com/docs/theming/
+@import "~@ionic/angular/css/core.css";
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+
+
+
+
+// div[scrollx=true], div[scrolly=true] {
+//   position: relative;
+//   overflow: hidden;
+
+//   ::-webkit-scrollbar {
+//     display: none;
+//   }
+// }
+
+// div[scrollx=true] {
+//   overflow-x: auto;
+// }
+
+// div[scrolly=true] {
+//   overflow-y: auto;
+// }
+// .scroll-content {
+//   overflow-y: auto !important;
+// }
+
+::-webkit-scrollbar {
+    width:0px;
+}

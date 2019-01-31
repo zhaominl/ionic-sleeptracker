@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-toolbar color="medium">
+    <ion-buttons slot="start" (click)="dismiss()">
+      <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+    </ion-buttons>
+    <ion-title class="title-space">Search</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-item color="medium">
+    <ion-label>Search by Date</ion-label>
+    <!-- <ion-select dateVar = "2018-11-17T11:06Z"> -->
+    <ion-datetime displayFormat="MMM DD YYYY" min="1997" max="2060" [(ngModel)]="datestring" (value)="datestring"></ion-datetime>
+    <ion-buttons slot="end">
+      <ion-button icon-only (click)="searchAll()">
+        <ion-icon name="search"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-item>
+  <br />
+
+  <ion-item lines="full" color="primary" *ngIf="haveDay">
+    <ion-label> Sleepiness in Day </ion-label>
+  </ion-item>
+
+  <ion-list *ngFor="let day of dayResult | async">
+
+    <ion-item>
+      <ion-label class="sub-list">
+        {{day.dateString()}}
+      </ion-label>
+      <ion-badge class="sub-list" color="{{palette[day.logVal-1]}}" item-end>
+        {{day.logVal}}
+      </ion-badge>
+    </ion-item>
+
+  </ion-list>
+
+  <br />
+
+  <ion-item lines="full" color="primary" *ngIf="haveNight">
+    <ion-label> Overnight Sleep </ion-label>
+  </ion-item>
+
+  <ion-list *ngFor="let night of nightResult | async">
+
+    <ion-item>
+      <ion-label class="sub-list" slot="start">
+          {{night.dateString()}}
+      </ion-label>
+      <ion-label class="sub-list" color="medium">
+          {{night.summaryString()}}
+      </ion-label>
+    </ion-item>
+
+  </ion-list>
+</ion-content>
